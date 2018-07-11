@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	
+	
+	
+	<form action="/blog/writeBlog" method="post">
+		<input type="hidden" th:value="${session.user.username}"  name="username"/>
+		<input type="text" placeholder="输入文章标题" name="title"/><br/>
+		<!-- 加载编辑器的容器 -->
+		<script id="container" name="content" type="text/plain">
+			这里写你的初始化内容
+		</script>
+		<!-- 配置文件 -->
+		<script type="text/javascript" th:src="@{~/ueditor/ueditor.config.js}"></script>
+		<!-- 编辑器源码文件 -->
+		<script type="text/javascript" th:src="@{~/ueditor/ueditor.all.js}"></script>
+		<script type="text/javascript" th:src="@{~/ueditor/lang/zh-cn/zh-cn.js}"></script>
+		<!-- 实例化编辑器 -->
+		<script type="text/javascript">
+			var ue = UE.getEditor('container');
+			UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	        UE.Editor.prototype.getActionUrl = function(action) {
+	            if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+	                return 'http://localhost/ueditor/imgUpload';
+	            } else if (action == 'uploadvideo') {
+	                return 'http://a.b.com/video.php';
+	            } else {
+	                return this._bkGetActionUrl.call(this, action);
+	            }
+	        }
+		</script>
+		<button type="submit">提交</button>
+	</form>
+	
+</body>
+</html>

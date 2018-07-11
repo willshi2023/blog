@@ -1,8 +1,0 @@
-程序未完成，只是demo，待续。。。
-程序运用框架和技术如下
-	前端
-		bootstrap
-	后端
-		springboot+mybatis+thymeleaf
-运行前请修改application.yml的数据库配置
-访问首页http://localhost/

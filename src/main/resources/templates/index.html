@@ -6,13 +6,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>首页</title>
 <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="/blog/css/index.css" rel="stylesheet" />
+<script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+<!-- <link href="/blog/css/index.css" rel="stylesheet" /> -->
+<style type="text/css">
+	.left{
+		position: fixed;
+		top: 60px;
+		left: 20%;
+		padding-right: 35%;
+	}
+	.right{
+		position: fixed;
+		top: 60px;
+		left: 70%;
+	}
+</style>
 </head>
 <body>
 	<div th:include="commons/top :: head"></div>
 	<div th:include="commons/buttom :: foot"></div>
-	<div class="msg">
-		<h3>敬请期待。。。</h3>
+	<div class="mainbox">
+		<div class="left" id="left">
+			
+		</div>
+		<div class="right">
+			<div th:if="${session.user}==null">
+					<a href="/regist">注册</a>
+					<a href="/login">登录</a>
+			</div>
+			<div th:if="${session.user}!=null">
+					<a href="#" th:text="${session.user.username}+'，你好'"></a>
+					<a href="/logout">注销</a><br/>
+					<a href="/blog/writeBlog"><button type="button"><font color="black">写博客</font></button></a>
+			</div>
+		</div>
 	</div>
+	<script type="text/javascript">
+		window.onload=function(){
+			showBlogList();
+			/* activeStatus(); */
+		}
+		
+		/* 
+			改变选中状态，只有点击的才会被选中
+		*/
+		function activeStatus(){
+			topnav.addEventListener("click", function(e) {//监听一堆对象
+				var topnav = document.getElementById('topnav');
+				//先去掉被选中的状态
+				var actives = topnav.querySelectorAll("li[class='active']");
+				for(var i=0;i<actives.length;i++){
+					actives[i].removeAttribute('class');
+				}
+				var t = e.target.parentElement;//选中的是a标签，实际需要修改a标签的父标签li标签
+				if(t.getAttribute('class')==null){//这里并不打算将下拉框也active，减少麻烦
+					t.setAttribute("class", "active");
+				}
+			}, false)
+			
+		}
+		
+		//在左侧页面增加文章列表，利用ajax异步加载
+		function showBlogList(){
+			var url = "/blog/showBlogList";
+			$.ajax({
+			  type: 'GET',
+			  url: url,
+			  data: "",
+			  success: function(data){
+				  var left = document.getElementById("left");
+				  var text = "";
+				  for(var i=0;i<data.length;i++){
+					  text = text + "<div class='blog'>"+
+					  "<div class='title'>"+data[i].title+"</div>"+
+					  "<div class='content'>"+data[i].summary+"</div>"+
+					  "<div class='username'>"+data[i].username+"</div>"+
+					  "<div class='time'>"+data[i].time+"</div>"+
+					  "<div class='readCount'>"+data[i].readCount+"</div>"+
+					  "</div>";
+				  }
+				  left.innerHTML = text;
+			  }
+			});
+		}
+	</script>
 </body>
 </html>
