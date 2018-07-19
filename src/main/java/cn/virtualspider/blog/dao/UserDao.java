@@ -10,7 +10,12 @@ public interface UserDao {
 	@Select("select * from user where username = #{username}")
 	User findUserByUserName(@Param("username")String username);
 	
-	@Insert("insert user(username,password,registTime,status,lastLoginTime) "
+	/**
+	 * 新增用户
+	 * 		新增用户时，id默认自增，status默认为可用	
+	 * @param user
+	 */
+	@Insert("insert user(username,password,regist_time,status,last_login_time) "
 			+ "values (#{username},#{password},#{registTime},#{status},#{lastLoginTime})")
 	void InsertUser(User user);
 

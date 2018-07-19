@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			input[type=button], input[type=reset], input[type=submit] {cursor: pointer;-webkit-appearance: button;}
+			.login-part {margin: 10% auto;background: #fefefe;border: 1px solid #d5dce5;
+			border-radius: 5px;width: 360px;height: 360px;}
+			.login-part h3 {margin: 0;position: relative;font-size: 1.5em;color: #4d5e73;padding: 25px 30px 15px 30px;}
+			.user-info {padding: 0 30px;}
+			.user-pass form {margin: 0;padding: 0;padding-right: 8px;}
+			.user-name, .pass-word {background: #fff;display: block;width: 100%;padding: 12px 0;
+			border: 1px solid #d5dce5;margin-bottom: 20px;font-weight: normal;text-indent: 23px;
+			outline: 0;font-size: 1.25em;border-radius: 3px;}
+			.login {background: #c90a16;display: block;height: 44px;line-height: 44px;color: #fff;
+			text-align: center;margin-top: 20px;font-size: 1.5em;text-decoration: none;clear: both;
+			width: 100%;border: solid 1px #c90000;border-radius: 3px;box-shadow: 0 0 3px #fff inset;
+		</style>
+		<script th:src="@{/blog/js/jquery.min.js}" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<div class="login-part">
+			<h3>帐号注册</h3>
+			<div class="user-info">
+				<div class="user-pass">
+
+					<form id="fm1" action="https://passport.csdn.net/account/verify" method="post">
+						<input type="hidden" id="gps" name="gps" value="">
+						<input id="username" name="username" tabindex="1" placeholder="输入用户名/邮箱/手机号" class="user-name" type="text" value="">
+						<div class="mobile-auth" style="display:none"><span>该手机已绑定账号，可使用  </span>
+							<a href="" id="mloginurl" class="mobile-btn">手机验证码登录</a>
+						</div>
+						<input id="password" name="password" tabindex="2" placeholder="输入密码" class="pass-word" type="password" value="" autocomplete="off">
+						<input id="password" name="password" tabindex="2" placeholder="再次输入密码" class="pass-word" type="password" value="" autocomplete="off">
+
+						<div class="error-mess" style="display:none;">
+							<span class="error-icon"></span><span id="error-message"></span>
+						</div>
+
+						<!-- 该参数可以理解成每个需要登录的用户都有一个流水号。只有有了webflow发放的有效的流水号，用户才可以说明是已经进入了webflow流程。否则，没有流水号的情况下，webflow会认为用户还没有进入webflow流程，从而会重新进入一次webflow流程，从而会重新出现登录界面。 -->
+						<input type="hidden" name="lt" value="LT-2045120-Y72VthH2wWolOwfhBbfxRG4vg3X4zy">
+						<input type="hidden" name="execution" value="e2s1">
+						<input type="hidden" name="fkid" id="fkid" value="">
+						<input type="hidden" name="_eventId" value="submit">
+						<input class="login" accesskey="l" value="注 册" tabindex="6" type="button">
+						<!-- data-kuick='{"act":"csdn05","desc":"直接登录"}' -->
+					</form>
+				</div>
+			</div>
+			<div class="line"></div>
+		</div>
+	</body>
+
+</html>

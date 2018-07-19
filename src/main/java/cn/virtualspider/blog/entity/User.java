@@ -17,12 +17,6 @@ public class User {
 	private String status;//账户信息，是否可用
 	private Date lastLoginTime;//最后一次登录日期
 	
-	//构造函数有些东西可以自动生成
-	public User() {
-		registTime = new Date();
-		status = "0";
-		lastLoginTime = registTime;
-	}
 	
 	public Long getId() {
 		return id;
