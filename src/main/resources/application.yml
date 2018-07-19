@@ -18,3 +18,7 @@ server:
 custom:
   tmpLocation: d:/tmp
   resourceLocation: /upload/
+mybatis:
+  configuration:
+    #开启驼峰命名转换
+    map-underscore-to-camel-case: true

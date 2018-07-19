@@ -118,6 +118,7 @@ public class UserController {
 				user.setRegistTime(date);
 				user.setUsername(username);
 				userDao.InsertUser(user);
+				session.setAttribute("user", user);
 				result = new Result(PromptMessageEnum.REGIST_USER_SUCCESS);
 			}
 		}else {
@@ -143,6 +144,20 @@ public class UserController {
 			result=  new Result(PromptMessageEnum.SESSION_HAS_USER);
 			result.setData(user);
 		}
+		return result;
+	}
+	
+	/**
+	 * 注销掉session即可退出
+	 * @param session
+	 * @return
+	 */
+//	注销当前登录{"post","/user/logout","","$Result"}
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	@ResponseBody
+	public Result logout(HttpSession session) {
+		session.invalidate();
+		Result result = new Result(PromptMessageEnum.LOGOUT_SUCCESS);
 		return result;
 	}
 }

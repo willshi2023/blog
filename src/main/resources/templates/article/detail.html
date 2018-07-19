@@ -143,14 +143,26 @@
 						'<h3 class="news_title">'+articleDetail.title+'</h3>'+
       			'<div class="bloginfo"><ul><li class="author">作者：'+articleDetail.username+'<a href="/">'+
       			'</a></li>'+
-         		'<li class="timer">时间：'+articleDetail.createTime+'</li>'+
-          	'<li class="view">'+articleDetail.readCount+'人已阅读</li></ul></div>'+
+         		'<li class="timer">时间：'+timestampToTime(articleDetail.createTime)+'</li>'+
+          	'<li class="view">'+articleDetail.readCount+'次点击</li></ul></div>'+
       			'<div class="tags">'+tagHtml+'</div>'+
       			'<div class="news_about"><strong>简介</strong>'+articleDetail.summary+'</div>'+
       			'<div class="news_con">'+articleDetail.content+'</div>';
 				s.innerHTML=shtml;
 			}
 		});
+	}
+	
+	/*将时间戳改为YYYY-MM-dd HH:mm:ss的显示方式*/
+	function timestampToTime(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		Y = date.getFullYear() + '-';
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		D = date.getDate() + ' ';
+		h = (date.getHours()<10?'0'+date.getHours():date.getHours()) + ':';
+		m = (date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes()) + ':';
+		s = date.getSeconds()<10?'0'+date.getSeconds():date.getSeconds();
+		return Y+M+D+h+m+s;
 	}
 </script>
 </body>

@@ -9,7 +9,7 @@ public class Article {
 	private Long id;						//文章id
 	private String title;					//标题
 	private String summary;					//摘要
-	private String show_pictrue;			//展示图片路径
+	private String showPictrue;			//展示图片路径
 	public Long getId() {
 		return id;
 	}
@@ -28,11 +28,11 @@ public class Article {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	public String getShow_pictrue() {
-		return show_pictrue;
+	public String getShowPictrue() {
+		return showPictrue;
 	}
-	public void setShow_pictrue(String show_pictrue) {
-		this.show_pictrue = show_pictrue;
+	public void setShowPictrue(String showPictrue) {
+		this.showPictrue = showPictrue;
 	}
 	
 }

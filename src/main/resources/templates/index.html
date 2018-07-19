@@ -1,173 +1,241 @@
 <!doctype html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>首页_石佳个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
-<meta name="keywords" content="个人博客,石佳个人博客,个人博客模板,石佳" />
-<meta name="description" content="石佳个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link th:href="@{/blog/css/base.css}" rel="stylesheet">
-<link th:href="@{/blog/css/index.css}" rel="stylesheet">
-<link th:href="@{/blog/css/m.css}" rel="stylesheet">
-<script th:src="@{/blog/js/jquery.min.js}" type="text/javascript"></script>
-<!--<script type="text/javascript" th:src="@{/blog/js/hc-sticky.js}"></script>-->
-<script type="text/javascript" th:src="@{/blog/js/comm.js}"></script>
-</head>
-<body>
-<header class="header-navigation" id="header">
-  
-</header>
 
-<article>
-  <aside>
-    <div class="l_box" id="stickMe">
-      <div class="about_me">
-        <h2>关于我</h2>
-        <ul id="user-detail">
-        </ul>
-      </div>
-      <div class="wdxc">
-        <h2>我的相册</h2>
-        <ul>
-          <li><a href="/"><img th:src="@{/blog/images/7.jpg}"></a></li>
-          <li><a href="/"><img th:src="@{/blog/images/8.jpg}"></a></li>
-          <li><a href="/"><img th:src="@{/blog/images/9.jpg}"></a></li>
-          <li><a href="/"><img th:src="@{/blog/images/10.jpg}"></a></li>
-          <li><a href="/"><img th:src="@{/blog/images/11.jpg}"></a></li>
-          <li><a href="/"><img th:src="@{/blog/images/12.jpg}"></a></li>
-        </ul>
-      </div>
-      <div class="search">
-        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-          <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-          <input name="show" value="title" type="hidden">
-          <input name="tempid" value="1" type="hidden">
-          <input name="tbname" value="news" type="hidden">
-          <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
-      </div>
-      <div class="fenlei">
-        <h2>文章分类</h2>
-        <ul>
-          <li><a href="/">学无止境（33）</a></li>
-          <li><a href="/">日记（19）</a></li>
-          <li><a href="/">慢生活（520）</a></li>
-          <li><a href="/">美文欣赏（40）</a></li>
-        </ul>
-      </div>
-      <div class="tuijian">
-        <h2>站长推荐</h2>
-        <ul>
-          <li><a href="/">你是什么人便会遇上什么人</a></li>
-          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
-          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
-          <li><a href="/">个人博客模板《绅士》后台管理</a></li>
-          <li><a href="/">你是什么人便会遇上什么人</a></li>
-          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
-          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
-          <li><a href="/">个人博客模板《绅士》后台管理</a></li>
-        </ul>
-      </div>
-      <div class="links">
-        <h2>友情链接</h2>
-        <ul>
-          <a href="http://www.yangqq.com">石佳个人博客</a> <a href="http://www.yangqq.com">石佳博客</a>
-        </ul>
-      </div>
-      <div class="guanzhu">
-        <h2>关注我 么么哒</h2>
-        <ul>
-          <img th:src="@{/blog/images/wx.png}">
-        </ul>
-      </div>
-    </div>
-  </aside>
-  <div class="r_box">
-<main id="article-list">
-</main>
-  </div>
-</article>
-<footer>
-  <p>Design by <a href="http://www.yangqq.com" target="_blank">石佳个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
-</footer>
-<a href="#" class="cd-top">Top</a>
-<script type="text/javascript">
-	window.onload=function(){
-		var aurl = '/article/getArticles';
-		getArticles(aurl);
-		var userDetailUrl = '/user/getUserIntroduce';
-		getUserDetail(userDetailUrl);
-		loadHeader();
-	}
-	
-	/*获得文章列表并填充*/
-	function getArticles(aurl){
-		$.ajax({
-			type:"post",
-			url:aurl,
-			async:false,
-			success:function(data){
-				var s = document.getElementById('article-list');
-				var list = data.data;
-				var shtml = '';
-				for(var i=0;i<list.length;i++){
-					shtml = shtml+
-						'<li><i><a href="/article/detail/'+list[i].id+'"><img src="'+list[i].show_pictrue+'"></a>'+
-						'</i><h3><a href="/article/detail/'+list[i].id+'">'+list[i].title+'</a></h3><p>'+list[i].summary+'</p></li>';
-				}
-				s.innerHTML=shtml;
+	<head>
+		<meta charset="utf-8">
+		<title>首页_石佳个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+		<meta name="keywords" content="个人博客,石佳个人博客,个人博客模板,石佳" />
+		<meta name="description" content="石佳个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link th:href="@{/blog/css/base.css}" rel="stylesheet">
+		<link th:href="@{/blog/css/index.css}" rel="stylesheet">
+		<link th:href="@{/blog/css/m.css}" rel="stylesheet">
+		<script th:src="@{/blog/js/jquery.min.js}" type="text/javascript"></script>
+		<!--<script type="text/javascript" th:src="@{/blog/js/hc-sticky.js}"></script>-->
+	</head>
+
+	<body>
+		<header class="header-navigation" id="header">
+
+		</header>
+
+		<article>
+			<aside>
+				<div class="l_box" id="stickMe">
+					<div class="about_me">
+						<h2>关于我</h2>
+						<ul id="user-detail">
+						</ul>
+					</div>
+					<div class="wdxc">
+						<h2>我的相册</h2>
+						<ul>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/7.jpg}"></a>
+							</li>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/8.jpg}"></a>
+							</li>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/9.jpg}"></a>
+							</li>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/10.jpg}"></a>
+							</li>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/11.jpg}"></a>
+							</li>
+							<li>
+								<a href="/"><img th:src="@{/blog/images/12.jpg}"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="search">
+						<form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+							<input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+							<input name="show" value="title" type="hidden">
+							<input name="tempid" value="1" type="hidden">
+							<input name="tbname" value="news" type="hidden">
+							<input name="Submit" class="input_submit" value="搜索" type="submit">
+						</form>
+					</div>
+					<div class="fenlei">
+						<h2>文章分类</h2>
+						<ul>
+							<li>
+								<a href="/">学无止境（33）</a>
+							</li>
+							<li>
+								<a href="/">日记（19）</a>
+							</li>
+							<li>
+								<a href="/">慢生活（520）</a>
+							</li>
+							<li>
+								<a href="/">美文欣赏（40）</a>
+							</li>
+						</ul>
+					</div>
+					<div class="tuijian">
+						<h2>站长推荐</h2>
+						<ul>
+							<li>
+								<a href="/">你是什么人便会遇上什么人</a>
+							</li>
+							<li>
+								<a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a>
+							</li>
+							<li>
+								<a href="/">第二届 优秀个人博客模板比赛参选活动</a>
+							</li>
+							<li>
+								<a href="/">个人博客模板《绅士》后台管理</a>
+							</li>
+							<li>
+								<a href="/">你是什么人便会遇上什么人</a>
+							</li>
+							<li>
+								<a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a>
+							</li>
+							<li>
+								<a href="/">第二届 优秀个人博客模板比赛参选活动</a>
+							</li>
+							<li>
+								<a href="/">个人博客模板《绅士》后台管理</a>
+							</li>
+						</ul>
+					</div>
+					<div class="links">
+						<h2>友情链接</h2>
+						<ul>
+							<a href="http://www.yangqq.com">石佳个人博客</a>
+							<a href="http://www.yangqq.com">石佳博客</a>
+						</ul>
+					</div>
+					<div class="guanzhu">
+						<h2>关注我 么么哒</h2>
+						<ul>
+							<img th:src="@{/blog/images/wx.png}">
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<div class="r_box">
+				<main id="article-list">
+				</main>
+			</div>
+		</article>
+		<footer>
+			<p>Design by
+				<a href="http://www.yangqq.com" target="_blank">石佳个人博客</a>
+				<a href="/">蜀ICP备11002373号-1</a>
+			</p>
+		</footer>
+		<a href="#" class="cd-top">Top</a>
+		<script type="text/javascript">
+			window.onload = function() {
+				loadHeader();//加载网页头部
+				var jsBeLoad = '/blog/js/comm.js';
+				loadOtherJs(jsBeLoad);//手动加载其他js
+				var aurl = '/article/getArticles';
+				getArticles(aurl);//加载文章列表
+				var userDetailUrl = '/user/getUserIntroduce';
+				getUserDetail(userDetailUrl);//加载用户介绍信息
 			}
-		});
-	}
-	
-	/*获得用户详情并填充*/
-	function getUserDetail(userDetailUrl){
-		$.ajax({
-			type:"post",
-			url:userDetailUrl,
-			async:false,
-			success:function(data){
-				var s = document.getElementById('user-detail');
-				var userDetail = data.data;
-				if(userDetail!=null){
-					var shtml = '';
-					shtml = shtml+
-					'<i><img src="'+userDetail.image+'"></i>'+
-					'<p>'+userDetail.introduce+'</p>';
-					s.innerHTML=shtml;
-				}
+
+			/*获得文章列表并填充*/
+			function getArticles(aurl) {
+				$.ajax({
+					type: "post",
+					url: aurl,
+					async: false,
+					success: function(data) {
+						var s = document.getElementById('article-list');
+						var list = data.data;
+						var shtml = '';
+						for(var i = 0; i < list.length; i++) {
+							shtml = shtml +
+								'<li><i><a href="/article/detail/' + list[i].id + '"><img src="' + list[i].showPictrue + '"></a>' +
+								'</i><h3><a href="/article/detail/' + list[i].id + '">' + list[i].title + '</a></h3><p>' + list[i].summary + '</p></li>';
+						}
+						s.innerHTML = shtml;
+					}
+				});
 			}
-		});
-		
-		/*加载网页的头部
-		 			如果用户登陆，就显示欢迎信息，写博客和退出按钮
-		 			如果用户未登陆，就显示登陆和注册按钮
-		 * */
-		function loadHeader(){
-			$.ajax({
-			type:"post",
-			url:'/user/getUser',
-			async:false,
-			success:function(data){
-				var s;
-				var status = data.status;
-				if(status==true){
-					s='';
-				}
+
+			/*获得用户详情并填充*/
+			function getUserDetail(userDetailUrl) {
+				$.ajax({
+					type: "post",
+					url: userDetailUrl,
+					async: false,
+					success: function(data) {
+						var s = document.getElementById('user-detail');
+						var userDetail = data.data;
+						if(userDetail != null) {
+							var shtml = '';
+							shtml = shtml +
+								'<i><img src="' + userDetail.image + '"></i>' +
+								'<p>' + userDetail.introduce + '</p>';
+							s.innerHTML = shtml;
+						}
+					}
+				});
 			}
-			
-		}
-			<nav><div class="logo"><a href="@{/}">石佳个人博客</a></div>
-	    <h2 id="mnavh"><span class="navicon"></span></h2>
-	    <ul id="starlist">
-	      <li><a href="index.html">网站首页</a></li>
-	      <li><a href="about.html">关于我</a></li>
-	      <li><a href="gbook.html">留言</a></li>
-	      <li><a href="infopic.html"><img style="float: left;margin-top: 19px;" th:src="@{/blog/images/writeArticle.png}">&nbsp;写博客</a></li>
-	      <li><a style="float: left; margin-right: 20px;" th:href="@{/user/login}">登陆</a><a th:href="@{/user/regist}">注册</a></li>
-	    </ul>
-	</nav>
-	}
-</script>
-</body>
+
+				/*加载网页的头部
+				 			如果用户登陆，就显示欢迎信息，写博客和退出按钮
+				 			如果用户未登陆，就显示登陆和注册按钮
+				 * */
+				function loadHeader() {
+					var s;
+					$.ajax({
+							type: "post",
+							url: '/user/getUser',
+							async: false,
+							success: function(data) {
+								var status = data.status;
+								if(status == true) {
+									var user = data.data;
+									s = '<li><a href="infopic.html"><img style="float: left;margin-top: 19px;" src="/blog/images/writeArticle.png">&nbsp;写博客</a></li>' +
+										'<li><a href="">您好，' + user.username + '</a></li>' +
+										'<li><a href="/user/logout">注销</a></li>';
+								} else {
+									s = '<li><a style="float: left; margin-right: 20px;" href="/user/login">登陆</a><a href="/user/regist">注册</a></li>';
+								}
+							}
+						});
+						var header = document.getElementById('header'); 
+						var str='<nav><div class="logo"><a href="/">石佳个人博客</a></div>' +
+						'<h2 id="mnavh"><span class="navicon"></span></h2>' +
+						'<ul id="starlist">' +
+						'<li><a href="index.html">网站首页</a></li>' +
+						'<li><a href="about.html">关于我</a></li>' +
+						'<li><a href="gbook.html">留言</a></li>' + s + '</ul></nav>';
+						header.innerHTML = str;
+
+						//			<nav><div class="logo"><a href="@{/}">石佳个人博客</a></div>
+						//	    <h2 id="mnavh"><span class="navicon"></span></h2>
+						//	    <ul id="starlist">
+						//	      <li><a href="index.html">网站首页</a></li>
+						//	      <li><a href="about.html">关于我</a></li>
+						//	      <li><a href="gbook.html">留言</a></li>
+						//	      <li><a href="infopic.html"><img style="float: left;margin-top: 19px;" th:src="@{/blog/images/writeArticle.png}">&nbsp;写博客</a></li>
+						//	      <li><a style="float: left; margin-right: 20px;" th:href="@{/user/login}">登陆</a><a th:href="@{/user/regist}">注册</a></li>
+						//	    </ul>
+						//	</nav>
+					}
+				
+				/*动态加载其他的js*/
+				function loadOtherJs(jsBeLoad){
+					var script = document.createElement("script");
+					script.type="text/javascript";
+					script.src= jsBeLoad;
+					document.body.appendChild(script);
+				}
+				
+				
+		</script>
+	</body>
+
 </html>

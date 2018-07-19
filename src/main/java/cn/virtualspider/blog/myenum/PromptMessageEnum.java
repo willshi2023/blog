@@ -16,7 +16,8 @@ public enum PromptMessageEnum {
 	REGIST_USER_FAILURE_USER_ALREADY_EXIST(false,"注册用户失败，用户已存在"),
 	REGIST_USER_FAILURE_PASSWORD_NOT_EQUAL(false,"注册用户失败，两次输入密码不一致"),
 	SESSION_HAS_USER(true,"session中有用户"),
-	SESSION_DOSE_NOT_HAS_USER(false,"session中没有用户");
+	SESSION_DOSE_NOT_HAS_USER(false,"session中没有用户"),
+	LOGOUT_SUCCESS(true,"用户退出成功");
 	private Boolean status;//状态，成功为true，失败为false
 	private String promptMessage;//提示信息
 	private PromptMessageEnum(Boolean status,String promptMessage) {
