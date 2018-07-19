@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class User {
-	private int	id;//用户id
+	private Long id;//用户id
 	private String username;//姓名
 	private String password;//密码
 	private Date registTime;//注册时间
@@ -24,10 +24,10 @@ public class User {
 		lastLoginTime = registTime;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUsername() {

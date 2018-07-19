@@ -3,7 +3,7 @@
 #  typeAliasesPackage: cn.virtualspider.blog
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/blog1?useUnicode=true&characterEncoding=UTF-8&&useSSL=false
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

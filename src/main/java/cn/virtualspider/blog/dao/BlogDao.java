@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Select;
 import cn.virtualspider.blog.entity.Blog;
 
 public interface BlogDao {
-	@Insert("insert into blog(username,title,content,summary,time,readCount) values "
-			+ "(#{username},#{title},#{content},#{summary},#{time},#{readCount})")
+	@Insert("insert into blog(username,title,content,summary,time,read_count) values "
+			+ "(#{username},#{title},#{content},#{summary},#{time},#{read_count})")
 	void insertBlog(Blog blog);
 	
 	

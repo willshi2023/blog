@@ -9,12 +9,12 @@ import java.util.List;
  *
  */
 public class Blog {
-	private int blogId;//博客id
+	private int id;//博客id
 	private String username;//用户名
 	private String title;//博客标题
 	private String content;//博客内容
 	private String summary;//内容摘要
-	private Date time;//博客时间
+	private Date createTime;//博客时间
 	private int readCount;//阅读数
 	private List<Comment> comments;//评论
 	public String getSummary() {
@@ -24,14 +24,8 @@ public class Blog {
 		this.summary = summary;
 	}
 	public Blog() {//自动实现提交时间和阅读数的初始化
-		time = new Date();
+		createTime = new Date();
 		readCount = 0;
-	}
-	public int getBlogId() {
-		return blogId;
-	}
-	public void setBlogId(int blogId) {
-		this.blogId = blogId;
 	}
 	
 	public String getUsername() {
@@ -52,12 +46,6 @@ public class Blog {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getTime() {
-		return time;
-	}
-	public void setTime(Date time) {
-		this.time = time;
-	}
 	public int getReadCount() {
 		return readCount;
 	}
@@ -69,6 +57,18 @@ public class Blog {
 	}
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	
 }
