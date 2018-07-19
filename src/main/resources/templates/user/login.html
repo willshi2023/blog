@@ -26,27 +26,11 @@
 			<h3>帐号登录</h3>
 			<div class="user-info">
 				<div class="user-pass">
-
-					<form>
-						<input type="hidden" id="gps" name="gps" value="">
+					<div>
 						<input id="username" name="username" tabindex="1" placeholder="输入用户名/邮箱/手机号" class="user-name" type="text" value="">
-						<div class="mobile-auth" style="display:none"><span>该手机已绑定账号，可使用  </span>
-							<a href="" id="mloginurl" class="mobile-btn">手机验证码登录</a>
-						</div>
 						<input id="password" name="password" tabindex="2" placeholder="输入密码" class="pass-word" type="password" value="" autocomplete="off">
-
-						<div class="error-mess" style="display:none;">
-							<span class="error-icon"></span><span id="error-message"></span>
-						</div>
-
-						<!-- 该参数可以理解成每个需要登录的用户都有一个流水号。只有有了webflow发放的有效的流水号，用户才可以说明是已经进入了webflow流程。否则，没有流水号的情况下，webflow会认为用户还没有进入webflow流程，从而会重新进入一次webflow流程，从而会重新出现登录界面。 -->
-						<input type="hidden" name="lt" value="LT-2045120-Y72VthH2wWolOwfhBbfxRG4vg3X4zy">
-						<input type="hidden" name="execution" value="e2s1">
-						<input type="hidden" name="fkid" id="fkid" value="">
-						<input type="hidden" name="_eventId" value="submit">
 						<input id="login" class="login" accesskey="l" value="登 录" tabindex="6" type="submit">
-						<!-- data-kuick='{"act":"csdn05","desc":"直接登录"}' -->
-					</form>
+					</div>
 				</div>
 			</div>
 			<div class="line"></div>
@@ -60,14 +44,18 @@
 			 * */
 			window.onload=function(){
 				var login = document.getElementById('login');
+				var s;
 				login.onclick=function(){
 					changeBottomToDisable(login);
-					var s = docheckLogin();
-					if(s==false){
-						window.location.href='www.baidu.com';
+					s = docheckLogin();
+					if(s==true){
+						window.location.href='/';
+					}else{
+						window.location.href='/user/login';
 					}
 				}
 			}
+			
 			
 			function changeBottomToDisable(login){
 				login.style.background='#d5dce5';
@@ -78,7 +66,6 @@
 				var aurl = '/user/login';
 				var username = document.getElementById('username').value;
 				var password = document.getElementById('password').value;
-				var test = window.location.host;
 				var status;
 				$.ajax({
 					type:"post",
@@ -86,7 +73,6 @@
 					data:{'username':username,'password':password},
 					async:false,
 					success:function(data){
-						window.location.href='www.baidu.com';
 						status = data.status;
 					}
 				});

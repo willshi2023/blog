@@ -100,6 +100,7 @@ public class UserController {
 	 */
 //	执行注册验证{"post","/user/regist","$username,$password,$rePassword","$Result"}  
 	@RequestMapping(value="/regist",method=RequestMethod.POST)
+	@ResponseBody
 	public Result registp(HttpServletRequest request,HttpSession session) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");

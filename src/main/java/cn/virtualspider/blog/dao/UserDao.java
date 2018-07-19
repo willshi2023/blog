@@ -15,8 +15,8 @@ public interface UserDao {
 	 * 		新增用户时，id默认自增，status默认为可用	
 	 * @param user
 	 */
-	@Insert("insert user(username,password,regist_time,status,last_login_time) "
-			+ "values (#{username},#{password},#{registTime},#{status},#{lastLoginTime})")
+	@Insert("insert user(username,password,regist_time,last_login_time) "
+			+ "values (#{username},#{password},#{registTime},#{lastLoginTime})")
 	void InsertUser(User user);
 
 	@Select("select * from user where username = #{username} and password=#{password}")
