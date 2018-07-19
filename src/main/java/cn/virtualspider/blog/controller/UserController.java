@@ -125,4 +125,24 @@ public class UserController {
 		}
 		return result;
 	}
+	
+	/**
+	 * 从session中获取当前用户
+	 * @param session
+	 * @return
+	 */
+//	获取当前用户{"post","/user/getUser","","$Result"} 
+	@RequestMapping(value="/getUser",method=RequestMethod.POST)
+	@ResponseBody
+	public Result getUser(HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Result result;
+		if(user==null) {
+			result = new Result(PromptMessageEnum.SESSION_DOSE_NOT_HAS_USER);
+		}else {
+			result=  new Result(PromptMessageEnum.SESSION_HAS_USER);
+			result.setData(user);
+		}
+		return result;
+	}
 }

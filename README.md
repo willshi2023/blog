@@ -13,6 +13,7 @@
 跳转注册页面{"get","/user/regist","","/user/regist"}  
 执行登陆验证{"post","/user/login","$username,$password","$Result"}  
 执行注册验证{"post","/user/regist","$username,$password,$rePassword","$Result"}  
+获取当前用户{"post","/user/getUser","","$Result"}  
 #数据库字段
 article_dtl  
 ![article_dtl](other/image/article_dtl.png)  
