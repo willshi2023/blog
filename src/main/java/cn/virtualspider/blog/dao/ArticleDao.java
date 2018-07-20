@@ -2,6 +2,8 @@ package cn.virtualspider.blog.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -55,5 +57,15 @@ public interface ArticleDao {
 	 */
 	@Update("update article set read_count=read_count+1 where id=#{articleId}")
 	void addArticleReadCount(Long articleId);
+
+	/**
+	 * 保存文章信息，并返回文章的id
+	 * @param article
+	 * @return
+	 */
+	@Insert("insert into article(title,summary,show_pictrue,create_time)"
+			+ " values(#{title},#{summary},#{showPictrue},#{createTime})")
+	@Options(useGeneratedKeys=true)//添加该行，获取自增主键的id
+	Long saveArticle(Article article);
 
 }

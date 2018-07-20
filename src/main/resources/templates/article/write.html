@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <title>Insert title here</title>
+<style>
+	input.title {width: 100%;text-indent: 23px;margin-bottom: 15px;font-size: 1.25em;
+	border-radius: 3px;border: 1px solid #d5dce5;}
+</style>
 </head>
 <body>
 	
 	
 	
-	<form action="/blog/writeBlog" method="post">
+	<form action="/article/write" method="post">
 		<input type="hidden" th:value="${session.user.username}"  name="username"/>
-		<input type="text" placeholder="输入文章标题" name="title"/><br/>
+		<input class="title" type="text" placeholder="输入文章标题" name="title"/><br/>
 		<!-- 加载编辑器的容器 -->
 		<script id="container" name="content" type="text/plain">
 			这里写你的初始化内容

@@ -17,12 +17,14 @@
 # 接口  
 ### 文章模块  
 获取文章信息列表{"post","/article/getArticles","","$Result"}  
-跳转到文章详情{"get","/article/detail/${articleId}","","/article/detail"}  
+跳转到文章详情页面{"get","/article/detail/${articleId}","","/article/detail"}  
 获取文章详情{"post","/article/detail/${articleId}","","$Result"}  
+跳转到写文章页面{"get","/article/write","","/article/write"}  
+保存写好的文章{"post","/article/write","$content,$title,$showPictrue","$Result"}  
 ### 用户模块  
 获取用户介绍{"post","/user/getUserIntroduce","","$Result"}  
-跳转登陆页面{"get","/user/login","","/user/login"}  
-跳转注册页面{"get","/user/regist","","/user/regist"}  
+跳转到登陆页面{"get","/user/login","","/user/login"}  
+跳转到注册页面{"get","/user/regist","","/user/regist"}  
 执行登陆验证{"post","/user/login","$username,$password","$Result"}  
 执行注册验证{"post","/user/regist","$username,$password,$rePassword","$Result"}  
 获取当前用户{"post","/user/getUser","","$Result"}  
@@ -42,8 +44,17 @@ user_dtl用户详情表
 ![user_dtl](other/image/user_dtl.png)  
 user用户表  
 ![user](other/image/user.png)  
-# 细节
+# 细节  
+### 代码和数据库命名转换  
 开启驼峰命名转换，将java中的驼峰命名和数据库中的xx_xx字段自动进行转换  
 mybatis.configuration.map-underscore-to-camel-case: true  
+### 前台页面显示时间为时间戳的解决办法  
 后台查出的时间默在前台用时间戳显示，通过前台调用js方法，将时间戳改变成YYYY-MM-dd HH:mm:ss的显示方式  
-![前台转换时间戳为正常显示的时间](other/image/前台转换时间戳为正常显示的时间.png) 
+![前台转换时间戳为正常显示的时间](other/image/前台转换时间戳为正常显示的时间.png)  
+### 获取插入时的自增主键  
+在插入时获取自增主键的id  
+在dao的方法上加上一句这样的注解	@Options(useGeneratedKeys=true)//添加该行，product中的id将被自动添加  
+然后程序就会在运行的时候获取到主键，主键是封装在实体类内容的，可以直接获取  
+另一方面直接返回的是修改的栏目条数，并不是我们需要的主键    
+![获取自增主键的id1](other/image/获取自增主键的id1.png)  
+![获取自增主键的id2](other/image/获取自增主键的id2.png)  
