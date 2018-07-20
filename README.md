@@ -3,6 +3,11 @@
 ### 说明  
 为了节省开发时间，部分前端内容来之网上的网页模板  
 项目持续维护中，暂时有很多不妥的地方，比如密码加密，用户权限控制等等，后面会持续改进  
+### 项目用到的框架，技术等  
+工具：eclipse,hbuilder,sqlyog,gitdesktop  
+后端框架和技术：java,springboot,mybatis,thymeleaf  
+前端框架和技术：css,js,jquery  
+其他：mysql  
 # 预览  
 首页（未登陆）  
 ![首页1](other/image/首页1.png)  
