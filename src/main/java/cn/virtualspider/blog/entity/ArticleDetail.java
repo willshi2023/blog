@@ -17,7 +17,6 @@ public class ArticleDetail {
 	private String summary;					//摘要
 	private List<String> tags;				//标签
 	private String content;					//文章内容
-	private Long articleId;					//文章id
 	public Long getId() {
 		return id;
 	}
@@ -65,12 +64,6 @@ public class ArticleDetail {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public Long getArticleId() {
-		return articleId;
-	}
-	public void setArticleId(Long articleId) {
-		this.articleId = articleId;
 	}
 	
 }

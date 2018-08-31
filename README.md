@@ -63,3 +63,6 @@ mybatis.configuration.map-underscore-to-camel-case: true
 另一方面直接返回的是修改的栏目条数，并不是我们需要的主键    
 ![获取自增主键的id1](other/image/获取自增主键的id1.png)  
 ![获取自增主键的id2](other/image/获取自增主键的id2.png)  
+# 版本和需求  
+##### v1.0.20180829.001  
+用户写完文章后，直接跳转到首页  

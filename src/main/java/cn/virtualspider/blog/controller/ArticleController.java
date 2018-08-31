@@ -116,7 +116,7 @@ public class ArticleController {
 		//保存文章详情到article_dtl表
 		ArticleDetail articleDetail = new ArticleDetail();
 		articleDetail.setContent(content);
-		articleDetail.setArticleId(articleId);
+		articleDetail.setId(articleId);
 		articleDetailDao.saveArticleDetail(articleDetail);
 		
 		//将用户的id和文章的id插入到user_article表中

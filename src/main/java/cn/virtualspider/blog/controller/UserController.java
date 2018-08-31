@@ -44,7 +44,6 @@ public class UserController {
 			result.setData(userDetail);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
 			Result result = new Result(PromptMessageEnum.GET_USER_DETAIL_FAILURE);
 			return result;
 		}

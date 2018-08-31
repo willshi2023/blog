@@ -15,7 +15,7 @@ public interface ArticleDetailDao {
 	 * 保存文章详情到article_dtl表
 	 * @param articleDetail
 	 */
-	@Insert("insert into article_dtl(article_id,content) values(#{articleId},#{content})")
+	@Insert("insert into article_dtl(id,content) values(#{id},#{content})")
 	void saveArticleDetail(ArticleDetail articleDetail);
 
 }
