@@ -5,7 +5,7 @@ package cn.virtualspider.blog.myenum;
  * @author Administrator
  *
  */
-public enum PromptMessageEnum {
+public enum PromptMessage {
 	GET_ARTICLE_LIST_SUCCESS(true,"获取文章列表成功"),
 	GET_USER_DETAIL_SUCCESS(true,"获取用户详情成功"),
 	GET_USER_DETAIL_FAILURE(false,"获取用户详情失败"),
@@ -19,10 +19,14 @@ public enum PromptMessageEnum {
 	SESSION_DOSE_NOT_HAS_USER(false,"session中没有用户"),
 	LOGOUT_SUCCESS(true,"用户退出成功"),
 	SAVE_ARTICLE_SUCCESS(true,"保存文章成功"),
-	SAVE_ARTICLE_FAILURE(false,"保存文章失败");
+	SAVE_ARTICLE_FAILURE(false,"保存文章失败"),
+	DELETE_ARTICLE_SUCCESS(true,"删除文章成功"),
+	DELETE_ARTICLE_FAILURE(false,"删除文章失败"),
+	UPDATE_ARTICLE_FAILURE(false,"修改文章失败"),
+	UPDATE_ARTICLE_SUCCESS(true,"修改文章成功");
 	private Boolean status;//状态，成功为true，失败为false
 	private String promptMessage;//提示信息
-	private PromptMessageEnum(Boolean status,String promptMessage) {
+	private PromptMessage(Boolean status,String promptMessage) {
 		this.status = status;
 		this.promptMessage = promptMessage;
 	}

@@ -1,6 +1,7 @@
 package cn.virtualspider.blog.dao;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 
 import cn.virtualspider.blog.entity.ArticleDetail;
 
@@ -16,6 +17,9 @@ public interface ArticleDetailDao {
 	 * @param articleDetail
 	 */
 	@Insert("insert into article_dtl(id,content) values(#{id},#{content})")
-	void saveArticleDetail(ArticleDetail articleDetail);
+	Long saveArticleDetail(ArticleDetail articleDetail);
+
+	@Update("update article_dtl set content=#{content} where id=#{id}")
+	Long update(ArticleDetail articleDetail);
 
 }

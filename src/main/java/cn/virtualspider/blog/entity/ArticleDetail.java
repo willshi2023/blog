@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * 文章详情的实体类
+ * 设置detail的作用是：将content单独放在一张表中，在获取文章列表的时候，因为不需要加载文章内容，所以可以减少网络传输。
+ * 于此同时，detail表实际上只保存了content和id，这样做是为了减少冗余。
+ * 另外，实体类会包括很多article表+articledtl表的内容，目的是为了方便整合文章，具体的设计参见README.md中设计部分
  * @author Administrator
  *
  */

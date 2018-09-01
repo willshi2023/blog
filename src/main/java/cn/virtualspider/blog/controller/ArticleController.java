@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ import cn.virtualspider.blog.entity.Article;
 import cn.virtualspider.blog.entity.ArticleDetail;
 import cn.virtualspider.blog.entity.Result;
 import cn.virtualspider.blog.entity.User;
-import cn.virtualspider.blog.myenum.PromptMessageEnum;
+import cn.virtualspider.blog.myenum.PromptMessage;
 import cn.virtualspider.blog.util.StringUtil;
 
 @Controller
@@ -39,7 +40,7 @@ public class ArticleController {
 	@ResponseBody
 	public Result getArticles() {
 		List<Article> list = articleDao.getArticles();
-		Result result = new Result(PromptMessageEnum.GET_ARTICLE_LIST_SUCCESS);
+		Result result = new Result(PromptMessage.GET_ARTICLE_LIST_SUCCESS);
 		result.setData(list);
 		return result;
 	}
@@ -69,10 +70,10 @@ public class ArticleController {
 		articleDao.addArticleReadCount(articleId);//用户阅读时，修改数据库的阅读数加1
 		
 		ArticleDetail articleDetail = articleDao.getArticleDetailByArticleId(articleId);
-		Result result = new Result(PromptMessageEnum.GET_ARTICLE_DETAIL_SUCCESS);
+		Result result = new Result(PromptMessage.GET_ARTICLE_DETAIL_SUCCESS);
 		
-		List<String> tags = articleDao.getTagsByArticleId(articleId);
-		articleDetail.setTags(tags);
+//		List<String> tags = articleDao.getTagsByArticleId(articleId);
+//		articleDetail.setTags(tags);
 		result.setData(articleDetail);
 		return result;
 	}
@@ -124,7 +125,57 @@ public class ArticleController {
 		Long userId = user.getId();
 		userArticleDao.save(userId,articleId);
 		
-		Result result = new Result(PromptMessageEnum.SAVE_ARTICLE_SUCCESS);
+		Result result = new Result(PromptMessage.SAVE_ARTICLE_SUCCESS);
 		return result;
+	}
+	
+	/*
+	 * 将文章的状态改为：不可用
+	 */
+//	删除文章{"post","/article/delete","$articleId","$Result"}  
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Result delete(HttpServletRequest request) {
+		String articleId = request.getParameter("articleId");
+		int id = Integer.valueOf(articleId);
+		articleDao.deleteArticleById(id);
+		return new Result(PromptMessage.DELETE_ARTICLE_SUCCESS);
+	}
+	
+	
+//	跳转到修改文章页面{"get","/article/update/${articleId}","","/article/update"}  
+	@RequestMapping(value="/update/{articleId}",method=RequestMethod.GET)
+	public String update(@PathVariable Long articleId,Model model) {
+		model.addAttribute("articleId", articleId);
+		return "/article/update";
+	}
+	
+//	修改文章{"post","/article/update","$articleId,$content,$title,$showPictrue","$Result"}  
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public Result updateP(HttpServletRequest request) {
+		String sArticleId = request.getParameter("articleId");
+		Long articleId = Long.valueOf(sArticleId);
+		String content = request.getParameter("content");
+		String title = request.getParameter("title");
+		String showPictrue = request.getParameter("showPictrue");
+		showPictrue = StringUtil.CheckEmpty(showPictrue)?"":showPictrue;
+		
+		//修改文章信息
+		Article article = new Article();
+		article.setId(articleId);
+		article.setShowPictrue(showPictrue);
+		String summary = content.length()>40?content.substring(0, 40):content;//摘要从内容中取40个文字
+		article.setSummary(summary);
+		article.setTitle(title);
+		articleDao.update(article);
+		
+		//修改文章详情
+		ArticleDetail articleDetail = new ArticleDetail();
+		articleDetail.setContent(content);
+		articleDetail.setId(articleId);
+		articleDetailDao.update(articleDetail);
+		
+		return new Result(PromptMessage.UPDATE_ARTICLE_SUCCESS);
 	}
 }

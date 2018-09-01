@@ -1,6 +1,6 @@
 /*
-SQLyog v10.2 
-MySQL - 5.5.60 : Database - blog
+SQLyog Ultimate v11.22 (64 bit)
+MySQL - 5.7.22-log : Database - blog
 *********************************************************************
 */
 
@@ -22,17 +22,18 @@ DROP TABLE IF EXISTS `article`;
 
 CREATE TABLE `article` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL COMMENT '标题',
+  `title` varchar(20) DEFAULT NULL COMMENT '标题',
   `summary` varchar(100) DEFAULT NULL COMMENT '摘要',
   `show_pictrue` varchar(100) DEFAULT NULL COMMENT '展示图片',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `read_count` bigint(20) NOT NULL DEFAULT '0' COMMENT '阅读数',
+  `status` varchar(20) NOT NULL DEFAULT '可用' COMMENT '文章状态，可用和不可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `article` */
 
-insert  into `article`(`id`,`title`,`summary`,`show_pictrue`,`create_time`,`read_count`) values (1,'微服务架构的技术体系——上线啦','花了一些时间对微服务架构体系的理论以及实践进行了总结。一部分课程已经整理完毕上线了。 课程链接：微服务架构的技术体系详解 课程简介： 微服务架构的技术体系、社区目前已经越来越成熟。在最初系统架构的搭建','/blog/images/1.jpg','2018-07-18 21:13:06',17),(2,'JVM性能调优实践——G1 垃圾收集器分','前言 关于G1 GC以及其他垃圾收集器的介绍可以参考前一篇JVM性能调优实践——G1 垃圾收集器介绍篇。了解了G1垃圾收集器的运行机制之后，就可以针对一些GC相关参数来调整内存分配以及运行策略。下文的','/blog/images/1.jpg','2018-07-19 22:27:42',6);
+insert  into `article`(`id`,`title`,`summary`,`show_pictrue`,`create_time`,`read_count`,`status`) values (1,'测试20180831','<p># 简介&nbsp;&nbsp;</p><p>这个个人博客是我利用业余时间','','2018-08-31 23:10:01',1,'不可用'),(2,'测试20180831_1','<p>这个是今天晚上的第二个测试，用来测试文章编辑的</p>','','2018-08-31 23:12:05',29,'可用'),(3,'测试20180831_2','<p>测试文章回显11111</p><p><br/></p>','','2018-08-31 23:34:05',22,'可用');
 
 /*Table structure for table `article_dtl` */
 
@@ -40,14 +41,13 @@ DROP TABLE IF EXISTS `article_dtl`;
 
 CREATE TABLE `article_dtl` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '文章详情id',
-  `article_id` bigint(20) NOT NULL COMMENT '文章id',
   `content` text COMMENT '文章内容',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `article_dtl` */
 
-insert  into `article_dtl`(`id`,`article_id`,`content`) values (1,1,'花了一些时间对微服务架构体系的理论以及实践进行了总结。一部分课程已经整理完毕上线了。\r\n\r\n课程链接：微服务架构的技术体系详解\r\n\r\n课程简介：\r\n\r\n微服务架构的技术体系、社区目前已经越来越成熟。在最初系统架构的搭建，或者当现有架构已到达瓶颈需要进行架构演进时，很多架构师、运维工程师会考虑是否需要搭建微服务架构体系。虽然很多文章都说微服务架构是复杂的、会带来很多分布式的问题，但只要我们了解这些问题，并找到解法，就会有种拨开云雾的感觉。\r\n\r\n微服务架构也不是完美的，世上没有完美的架构，微服务架构也是随着业务、团队成长而不断演进的。最开始可能就几个、十几个微服务，每个服务是分库的，通过 API Gateway 并行进行服务数据合并、转发。随着业务扩大、不断地加入搜索引擎、缓存技术、分布式消息队列、数据存储层的数据复制、分区、分表等。\r\n\r\n本课程会一一解开微服务架构下分布式场景的问题，以及通过对于一些分布式技术的原理、模型和算法的介绍，来帮助想要实施微服务架构的工程师们知其然并知其所以然。并且，本课程通过对分布式问题的体系化梳理，结合一些方案的对比选型，可以让工程师们一览微服务的知识图谱。\r\n\r\n注：为了方便初学者理解微服务实践，以及掌握怎样在微服务中使用 DDD（Domain-Driven Design）思想，在本课程第 05 课中讲解了 Demo 示例，该示例是基于 SpringBoot、SpringCloud-Eureka 技术写的。 \r\nGithub 上的源码地址：\r\n\r\nMicroservice\r\nGateway\r\n源码的demo工程中分别有几个预留给读者的问题，开发工程师们可以checkout下来。欢迎在课程的读者圈或者Github上一起探讨。\r\n\r\nGitchat 分享卡'),(2,2,'/**\r\n	 * 查询文章的详细信息\r\n	 * 		先将基本的文章信息封装好\r\n	 * 		首先通过文章表的id 查出文章的id,标题，摘要，创建时间，阅读数\r\n	 * 		然后通过用户文章关联表的文章id 查询出用户的id\r\n	 * 		然后通过文章详情表的文章id 查询出文章内容\r\n	 * 		然后通过用户表的id（前面已经获取了） 查询出作者\r\n	 * \r\n	 * 		上述查询完之后，因为文章和标签可能是多对多的关系，单独再查出tags然后放到对象中\r\n	 * @param articleId\r\n	 * @return\r\n	 */');
+insert  into `article_dtl`(`id`,`content`) values (1,'<p># 简介&nbsp;&nbsp;</p><p>这个个人博客是我利用业余时间写出来的一个全栈项目，是第一个项目级别的作品，还在开发中，不足之处请多指教&nbsp;&nbsp;</p><p>### 说明&nbsp;&nbsp;</p><p>为了节省开发时间，部分前端内容来之网上的网页模板&nbsp;&nbsp;</p><p>项目持续维护中，暂时有很多不妥的地方，比如密码加密，用户权限控制等等，后面会持续改进&nbsp;&nbsp;</p><p>### 项目用到的框架，技术等&nbsp;&nbsp;</p><p>工具：eclipse,hbuilder,sqlyog,gitdesktop&nbsp;&nbsp;</p><p>后端框架和技术：java,springboot,mybatis,thymeleaf&nbsp;&nbsp;</p><p>前端框架和技术：css,js,jquery&nbsp;&nbsp;</p><p>其他：mysql&nbsp;&nbsp;</p><p># 预览&nbsp;&nbsp;</p><p>首页（未登陆）&nbsp;&nbsp;</p><p>![首页1](other/image/首页1.png)&nbsp;&nbsp;</p><p>首页（已登陆）&nbsp;&nbsp;</p><p>![首页2](other/image/首页2.png)&nbsp;&nbsp;</p><p>文章页&nbsp;&nbsp;</p><p>![文章页](other/image/文章页.png)&nbsp;&nbsp;</p><p>登陆页&nbsp;&nbsp;</p><p>![登录页](other/image/登录页.png)&nbsp;&nbsp;</p><p>注册页&nbsp;&nbsp;</p><p>![注册页](other/image/注册页.png)&nbsp;&nbsp;</p><p># 接口&nbsp;&nbsp;</p><p>### 文章模块&nbsp;&nbsp;</p><p>获取文章信息列表{&quot;post&quot;,&quot;/article/getArticles&quot;,&quot;&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>跳转到文章详情页面{&quot;get&quot;,&quot;/article/detail/${articleId}&quot;,&quot;&quot;,&quot;/article/detail&quot;}&nbsp;&nbsp;</p><p>获取文章详情{&quot;post&quot;,&quot;/article/detail/${articleId}&quot;,&quot;&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>跳转到写文章页面{&quot;get&quot;,&quot;/article/write&quot;,&quot;&quot;,&quot;/article/write&quot;}&nbsp;&nbsp;</p><p>保存写好的文章{&quot;post&quot;,&quot;/article/write&quot;,&quot;$content,$title,$showPictrue&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>删除文章{&quot;post&quot;,&quot;/article/delete&quot;,&quot;$articleId&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>### 用户模块&nbsp;&nbsp;</p><p>获取用户介绍{&quot;post&quot;,&quot;/user/getUserIntroduce&quot;,&quot;&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>跳转到登陆页面{&quot;get&quot;,&quot;/user/login&quot;,&quot;&quot;,&quot;/user/login&quot;}&nbsp;&nbsp;</p><p>跳转到注册页面{&quot;get&quot;,&quot;/user/regist&quot;,&quot;&quot;,&quot;/user/regist&quot;}&nbsp;&nbsp;</p><p>执行登陆验证{&quot;post&quot;,&quot;/user/login&quot;,&quot;$username,$password&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>执行注册验证{&quot;post&quot;,&quot;/user/regist&quot;,&quot;$username,$password,$rePassword&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>获取当前用户{&quot;post&quot;,&quot;/user/getUser&quot;,&quot;&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p>注销当前登录{&quot;post&quot;,&quot;/user/logout&quot;,&quot;&quot;,&quot;$Result&quot;}&nbsp;&nbsp;</p><p># 数据库字段&nbsp;&nbsp;</p><p>article_dtl文章详情表&nbsp;&nbsp;</p><p>![article_dtl](other/image/article_dtl.png)&nbsp;&nbsp;</p><p>article文章表&nbsp;&nbsp;</p><p>![article](other/image/article.png)&nbsp;&nbsp;</p><p>tag_article标签文章中间表&nbsp;&nbsp;</p><p>![tag_article](other/image/tag_article.png)&nbsp;&nbsp;</p><p>tag标签表&nbsp;&nbsp;</p><p>![tag](other/image/tag.png)&nbsp;&nbsp;</p><p>user_article用户文章表&nbsp;&nbsp;</p><p>![user_article](other/image/user_article.png)&nbsp;&nbsp;</p><p>user_dtl用户详情表&nbsp;&nbsp;</p><p>![user_dtl](other/image/user_dtl.png)&nbsp;&nbsp;</p><p>user用户表&nbsp;&nbsp;</p><p>![user](other/image/user.png)&nbsp;&nbsp;</p><p># 细节&nbsp;&nbsp;</p><p>### 代码和数据库命名转换&nbsp;&nbsp;</p><p>开启驼峰命名转换，将java中的驼峰命名和数据库中的xx_xx字段自动进行转换&nbsp;&nbsp;</p><p>mybatis.configuration.map-underscore-to-camel-case: true&nbsp;&nbsp;</p><p>### 前台页面显示时间为时间戳的解决办法&nbsp;&nbsp;</p><p>后台查出的时间默在前台用时间戳显示，通过前台调用js方法，将时间戳改变成YYYY-MM-dd HH:mm:ss的显示方式&nbsp;&nbsp;</p><p>![前台转换时间戳为正常显示的时间](other/image/前台转换时间戳为正常显示的时间.png)&nbsp;&nbsp;</p><p>### 获取插入时的自增主键&nbsp;&nbsp;</p><p>在插入时获取自增主键的id&nbsp;&nbsp;</p><p>在dao的方法上加上一句这样的注解<span style=\"white-space:pre\">	</span>@Options(useGeneratedKeys=true)//添加该行，product中的id将被自动添加&nbsp;&nbsp;</p><p>然后程序就会在运行的时候获取到主键，主键是封装在实体类内容的，可以直接获取&nbsp;&nbsp;</p><p>另一方面直接返回的是修改的栏目条数，并不是我们需要的主键&nbsp; &nbsp;&nbsp;</p><p>![获取自增主键的id1](other/image/获取自增主键的id1.png)&nbsp;&nbsp;</p><p>![获取自增主键的id2](other/image/获取自增主键的id2.png)&nbsp;&nbsp;</p><p># 版本和需求&nbsp;&nbsp;</p><p>##### v1.0.20180829.001&nbsp;&nbsp;</p><p>用户写完文章后，直接跳转到首页&nbsp;&nbsp;</p><p>##### v1.0.20180831.001&nbsp;&nbsp;</p><p>进入文章后，可以让用户重新编辑文章和删除文章&nbsp;&nbsp;</p><p><br/></p>'),(2,'<p>这个是今天晚上的第二个测试，用来测试文章编辑的</p>'),(3,'<p>测试文章回显11111</p><p><br/></p>');
 
 /*Table structure for table `tag` */
 
@@ -57,11 +57,9 @@ CREATE TABLE `tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '标签id',
   `name` varchar(20) NOT NULL COMMENT '标签名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `tag` */
-
-insert  into `tag`(`id`,`name`) values (1,'随笔'),(2,'微服务');
 
 /*Table structure for table `tag_article` */
 
@@ -72,11 +70,9 @@ CREATE TABLE `tag_article` (
   `tag_id` bigint(20) NOT NULL COMMENT '标签id',
   `article_id` bigint(20) NOT NULL COMMENT '文章id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `tag_article` */
-
-insert  into `tag_article`(`id`,`tag_id`,`article_id`) values (1,1,1),(2,2,1);
 
 /*Table structure for table `user` */
 
@@ -105,11 +101,11 @@ CREATE TABLE `user_article` (
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `article_id` bigint(20) NOT NULL COMMENT '文章id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_article` */
 
-insert  into `user_article`(`id`,`user_id`,`article_id`) values (1,1,1),(2,1,2);
+insert  into `user_article`(`id`,`user_id`,`article_id`) values (1,1,1),(2,1,2),(3,1,3);
 
 /*Table structure for table `user_dtl` */
 

@@ -20,7 +20,7 @@ public interface ArticleDao {
 	 * 获取文章列表
 	 * @return
 	 */
-	@Select("select * from article")
+	@Select("select * from article where status='可用'")
 	List<Article> getArticles();
 
 	/**
@@ -67,5 +67,11 @@ public interface ArticleDao {
 			+ " values(#{title},#{summary},#{showPictrue},#{createTime})")
 	@Options(useGeneratedKeys=true)//添加该行，获取自增主键的id
 	Long saveArticle(Article article);
+
+	@Update("update article set status='不可用' where id=#{id}")
+	Long deleteArticleById(int id);
+
+	@Update("update article set title=#{title},summary=#{summary},show_pictrue=#{showPictrue} where id=#{id}")
+	Long update(Article article);
 
 }

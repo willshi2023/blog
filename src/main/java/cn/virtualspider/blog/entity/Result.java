@@ -1,6 +1,6 @@
 package cn.virtualspider.blog.entity;
 
-import cn.virtualspider.blog.myenum.PromptMessageEnum;
+import cn.virtualspider.blog.myenum.PromptMessage;
 
 /**
  * 返回结果
@@ -12,7 +12,7 @@ public class Result {
 	private String msg;//返回信息
 	private Object data;//返回结果
 	public Result() {}
-	public Result(PromptMessageEnum em) {
+	public Result(PromptMessage em) {
 		status = em.getStatus();
 		msg = em.getPromptMessage();
 	}

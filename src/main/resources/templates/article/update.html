@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<style>
+	input.title {width: 100%;text-indent: 23px;margin-bottom: 15px;font-size: 1.25em;
+	border-radius: 3px;border: 1px solid #d5dce5;}
+	form {margin:0 15%;}
+	#ajaxSubmit{cursor: pointer;border: 1px solid #C92027;color: #C92027;font-weight: 400;text-align: center;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;}
+</style>
+<script th:src="@{/jquery-3.2.1.min.js}"></script>
+</head>
+<body>
+	
+	
+	
+	<form>
+		<!-- <input type="hidden" th:value="${session.user.username}"  name="username"/> -->
+		<input class="title" id="title" type="text" placeholder="输入文章标题" name="title"/><br/>
+		<!-- 加载编辑器的容器 -->
+		<script id="container" name="content" type="text/plain" style="height: 450px;">
+			
+		</script>
+		<br>
+		<button type="button" id="ajaxSubmit">发布博客</button>
+	</form>
+	<!-- 配置文件 -->
+	<script type="text/javascript" th:src="@{~/ueditor/ueditor.config.js}"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" th:src="@{~/ueditor/ueditor.all.js}"></script>
+	<script type="text/javascript" th:src="@{~/ueditor/lang/zh-cn/zh-cn.js}"></script>
+	<!-- 实例化编辑器 -->
+	<script th:inline="javascript">
+			var ue = UE.getEditor('container');
+			UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+			     UE.Editor.prototype.getActionUrl = function(action) {
+			         if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+			             return 'http://localhost/ueditor/imgUpload';
+			         } else if (action == 'uploadvideo') {
+			             return 'http://a.b.com/video.php';
+			         } else {
+			             return this._bkGetActionUrl.call(this, action);
+			         }
+			     }
+	       
+			     var articleId = [[${articleId}]];
+			     $.ajax({
+			 	       	type:"post",
+			       	url:"/article/detail/"+articleId,
+			       	async:false,
+			       	success:function(data){
+			 				if(data.status='true'){
+			 					var title = data.data.title;
+			 					document.getElementById('title').value=title;
+			 					var content =  data.data.content;
+			 					ue.ready(function() {
+			 						ue.setContent("");
+			 					    //异步回调 重新渲染 @ricky
+			 					    ue.execCommand('insertHtml', content);
+			 					});
+			 				}
+			       	}
+			     });
+	       	
+	       <!-- ajax提交表单 -->
+	       $(function(){
+				$("#ajaxSubmit").on("click",function () {
+					var title = document.getElementById('title').value;
+					var content =  ue.getContent();
+					$.ajax({
+						type:'post',
+						url:'/article/update',
+						data:{
+							'title': title,
+					        'content': content,
+					        'articleId':[[${articleId}]]
+						},
+						success:function(data){
+							if(data.status='true'){
+								alert(data.msg);
+								window.location.href='/';
+							}
+						}
+					});
+				});
+			});
+	       
+	       
+	</script>
+	<script th:inline="javascript">
+	
+	</script>
+</body>
+</html>

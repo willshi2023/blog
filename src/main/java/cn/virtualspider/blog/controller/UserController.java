@@ -16,7 +16,7 @@ import cn.virtualspider.blog.dao.UserDetailDao;
 import cn.virtualspider.blog.entity.Result;
 import cn.virtualspider.blog.entity.User;
 import cn.virtualspider.blog.entity.UserDetail;
-import cn.virtualspider.blog.myenum.PromptMessageEnum;
+import cn.virtualspider.blog.myenum.PromptMessage;
 
 /**
  * 用户相关的控制器
@@ -40,11 +40,11 @@ public class UserController {
 			User user = (User) session.getAttribute("user");
 			Long userId = user.getId();
 			UserDetail userDetail = userDetailDao.getUserIntroduceByUserId(userId);
-			Result result = new Result(PromptMessageEnum.GET_USER_DETAIL_SUCCESS);
+			Result result = new Result(PromptMessage.GET_USER_DETAIL_SUCCESS);
 			result.setData(userDetail);
 			return result;
 		} catch (Exception e) {
-			Result result = new Result(PromptMessageEnum.GET_USER_DETAIL_FAILURE);
+			Result result = new Result(PromptMessage.GET_USER_DETAIL_FAILURE);
 			return result;
 		}
 	}
@@ -79,10 +79,10 @@ public class UserController {
 		Result result;
 		if(user!=null) {
 			session.setAttribute("user", user);
-			result = new Result(PromptMessageEnum.LOGIN_USER_SUCCESS);
+			result = new Result(PromptMessage.LOGIN_USER_SUCCESS);
 			return result;
 		}else {
-			result = new Result(PromptMessageEnum.LOGIN_USER_FAILURE);
+			result = new Result(PromptMessage.LOGIN_USER_FAILURE);
 			return result;
 		}
 	}
@@ -108,7 +108,7 @@ public class UserController {
 		if(password.equals(rePassword)) {
 			User user = userDao.findUserByUserName(username);
 			if(user!=null) {
-				result = new Result(PromptMessageEnum.REGIST_USER_FAILURE_USER_ALREADY_EXIST);
+				result = new Result(PromptMessage.REGIST_USER_FAILURE_USER_ALREADY_EXIST);
 			}else {
 				Date date = new Date();
 				user = new User();
@@ -118,10 +118,10 @@ public class UserController {
 				user.setUsername(username);
 				userDao.InsertUser(user);
 				session.setAttribute("user", user);
-				result = new Result(PromptMessageEnum.REGIST_USER_SUCCESS);
+				result = new Result(PromptMessage.REGIST_USER_SUCCESS);
 			}
 		}else {
-			result = new Result(PromptMessageEnum.REGIST_USER_FAILURE_PASSWORD_NOT_EQUAL);
+			result = new Result(PromptMessage.REGIST_USER_FAILURE_PASSWORD_NOT_EQUAL);
 		}
 		return result;
 	}
@@ -138,9 +138,9 @@ public class UserController {
 		User user = (User) session.getAttribute("user");
 		Result result;
 		if(user==null) {
-			result = new Result(PromptMessageEnum.SESSION_DOSE_NOT_HAS_USER);
+			result = new Result(PromptMessage.SESSION_DOSE_NOT_HAS_USER);
 		}else {
-			result=  new Result(PromptMessageEnum.SESSION_HAS_USER);
+			result=  new Result(PromptMessage.SESSION_HAS_USER);
 			result.setData(user);
 		}
 		return result;
@@ -156,7 +156,7 @@ public class UserController {
 	@ResponseBody
 	public Result logout(HttpSession session) {
 		session.invalidate();
-		Result result = new Result(PromptMessageEnum.LOGOUT_SUCCESS);
+		Result result = new Result(PromptMessage.LOGOUT_SUCCESS);
 		return result;
 	}
 }

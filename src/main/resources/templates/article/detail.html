@@ -18,6 +18,7 @@
 <![endif]-->
 </head>
 <body>
+	
 <header class="header-navigation" id="header">
   <nav><div class="logo"><a href="/">石佳个人博客</a></div>
     <h2 id="mnavh"><span class="navicon"></span></h2>
@@ -95,7 +96,9 @@
   </aside>
   <div class="infosbox">
 <main>
-    <div class="newsview" id="newsview">
+    <div class="newsview" id="newsview"></div><br>
+	<div class="newsview">
+    	<button><a th:href="@{/article/update/}+${articleId}">编辑</a></button> <button onclick="deleteArticle()"><a>删除</a></button>
     </div>
     <div class="share">
       <p class="diggit"><a href=""> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src=""></script>13</b>)</p>
@@ -117,7 +120,33 @@
   <p>Design by <a href="http://www.yangqq.com" target="_blank">石佳个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
 </footer>
 <a href="#" class="cd-top">Top</a>
-<script type="text/javascript">
+<script th:inline="javascript">
+	function updateArticle(){
+		var aurl = '/article/update/'+[[${articleId}]];
+//		window.location.href=url;
+	}
+	
+function deleteArticle() {  
+    //利用对话框返回的值 （true 或者 false）  
+    if (confirm("是否删除该文章？")) {  
+         var articleId = document.getElementById('articleId').innerHTML;
+         //删除文章{"post","/article/delete","$articleId","$Result"}  
+         $.ajax({
+         	type:"post",
+         	url:"/article/delete",
+         	async:false,
+         	data:{'articleId':articleId},
+         	success:function(data){
+				if(data.status='true'){
+					alert('删除文章成功！');
+					window.location.href='/';
+				}
+         	}
+         });
+    }  
+
+} 
+
 	window.onload=function(){
 		/*aurl = "http://localhost/article/detail/1"*/
 		var aurl = window.location.pathname;
@@ -134,20 +163,21 @@
 				var s = document.getElementById('newsview');
 				var articleDetail = data.data;
 				var shtml = '';
-					var tags = articleDetail.tags;
+					/*var tags = articleDetail.tags;
 					var tagHtml='';
 					for(var i=0;i<tags.length;i++){
 						tagHtml='<a href="/" target="_blank">'+tags[i]+'</a> &nbsp;';
-					}
+					}*/
 					shtml = shtml+
 						'<h3 class="news_title">'+articleDetail.title+'</h3>'+
       			'<div class="bloginfo"><ul><li class="author">作者：'+articleDetail.username+'<a href="/">'+
       			'</a></li>'+
          		'<li class="timer">时间：'+timestampToTime(articleDetail.createTime)+'</li>'+
           	'<li class="view">'+articleDetail.readCount+'次点击</li></ul></div>'+
-      			'<div class="tags">'+tagHtml+'</div>'+
+      			/*'<div class="tags">'+tagHtml+'</div>'+*/
       			'<div class="news_about"><strong>简介</strong>'+articleDetail.summary+'</div>'+
-      			'<div class="news_con">'+articleDetail.content+'</div>';
+      			'<div class="news_con">'+articleDetail.content+'</div>'+
+      			'<div id="articleId" style="visibility: hidden;">'+articleDetail.id+'</div>';
 				s.innerHTML=shtml;
 			}
 		});
