@@ -6,7 +6,7 @@
 <style>
 	input.title {width: 100%;text-indent: 23px;margin-bottom: 15px;font-size: 1.25em;
 	border-radius: 3px;border: 1px solid #d5dce5;}
-	form {margin:0 15%;}
+	form {margin:5% 15%;}
 	#ajaxSubmit{cursor: pointer;border: 1px solid #C92027;color: #C92027;font-weight: 400;text-align: center;padding: .375rem .75rem;font-size: 1rem;line-height: 1.5;border-radius: .25rem;}
 </style>
 <script th:src="@{/jquery-3.2.1.min.js}"></script>
@@ -14,10 +14,9 @@
 <body>
 	
 	
-	
 	<form>
 		<!-- <input type="hidden" th:value="${session.user.username}"  name="username"/> -->
-		<input class="title" id="title" type="text" placeholder="输入文章标题" name="title"/><br/>
+		<input class="title" id="title" type="text" placeholder="" name="title"/><br/>
 		<!-- 加载编辑器的容器 -->
 		<script id="container" name="content" type="text/plain" style="height: 450px;">
 			

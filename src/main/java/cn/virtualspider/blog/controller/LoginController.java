@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.virtualspider.blog.dao.UserDao;
+import cn.virtualspider.blog.entity.Result;
 import cn.virtualspider.blog.entity.User;
+import cn.virtualspider.blog.myenum.PromptMessage;
 import cn.virtualspider.blog.util.Md5Util;
 import cn.virtualspider.blog.util.StringUtil;
 
@@ -106,14 +109,11 @@ public class LoginController {
 		return "index";
 	}
 
-	/**
-	 * 注销
-	 * 
-	 * @return
-	 */
+//	注销当前登录{"get","/user/logout","","$Result"}  
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
+	@ResponseBody
+	public Result logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return new Result(PromptMessage.LOGOUT_SUCCESS);
 	}
 }

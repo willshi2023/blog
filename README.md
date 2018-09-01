@@ -39,7 +39,8 @@
 执行登陆验证{"post","/user/login","$username,$password","$Result"}  
 执行注册验证{"post","/user/regist","$username,$password,$rePassword","$Result"}  
 获取当前用户{"post","/user/getUser","","$Result"}  
-注销当前登录{"post","/user/logout","","$Result"}  
+注销当前登录{"get","/user/logout","","$Result"}  
+这个地方不清楚为什么不能用post，显示退出不支持post  
 # 数据库字段  
 article_dtl文章详情表  
 ![article_dtl](other/image/article_dtl.png)  
@@ -80,3 +81,6 @@ mybatis.configuration.map-underscore-to-camel-case: true
 用户写完文章后，直接跳转到首页  
 ##### v1.0.20180831.001  
 进入文章后，可以让用户重新编辑文章和删除文章  
+##### v1.0.20180901.001  
+优化网站头部显示  
+用户退出时可以直接跳转到首页  

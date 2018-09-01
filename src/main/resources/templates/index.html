@@ -3,9 +3,9 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>首页_石佳个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
-		<meta name="keywords" content="个人博客,石佳个人博客,个人博客模板,石佳" />
-		<meta name="description" content="石佳个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+		<title>首页_个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+		<meta name="keywords" content="个人博客,个人博客,个人博客模板,石佳" />
+		<meta name="description" content="个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link th:href="@{/blog/css/base.css}" rel="stylesheet">
 		<link th:href="@{/blog/css/index.css}" rel="stylesheet">
@@ -15,17 +15,18 @@
 	</head>
 
 	<body>
-		<header class="header-navigation" id="header">
-
-		</header>
+	<!-- 引入网站头文件 -->
+	<div th:replace="commons/top::head1"></div>
 
 		<article>
 			<aside>
 				<div class="l_box" id="stickMe">
 					<div class="about_me">
 						<h2>关于我</h2>
-						<ul id="user-detail">
-						</ul>
+						<ul>
+				          <i><img th:src="@{~/blog/images/introduce.jpg}"></i>
+				          <p><b>石佳</b>，一个代码爱好者。在工作中积累技术的同时，也乐意在业余时间自学和实践。喜欢音乐，电影，游泳。ps：图片只是福利</p>
+				        </ul>
 					</div>
 					<div class="wdxc">
 						<h2>我的相册</h2>
@@ -108,7 +109,7 @@
 					<div class="links">
 						<h2>友情链接</h2>
 						<ul>
-							<a href="http://www.yangqq.com">石佳个人博客</a>
+							<a href="http://www.yangqq.com">个人博客</a>
 							<a href="http://www.yangqq.com">石佳博客</a>
 						</ul>
 					</div>
@@ -127,20 +128,20 @@
 		</article>
 		<footer>
 			<p>Design by
-				<a href="http://www.yangqq.com" target="_blank">石佳个人博客</a>
+				<a href="http://www.yangqq.com" target="_blank">个人博客</a>
 				<a href="/">蜀ICP备11002373号-1</a>
 			</p>
 		</footer>
 		<a href="#" class="cd-top">Top</a>
 		<script type="text/javascript">
 			window.onload = function() {
-				loadHeader();//加载网页头部
+				//loadHeader();//加载网页头部
 				var jsBeLoad = '/blog/js/comm.js';
 				loadOtherJs(jsBeLoad);//手动加载其他js
 				var aurl = '/article/getArticles';
 				getArticles(aurl);//加载文章列表
-				var userDetailUrl = '/user/getUserIntroduce';
-				getUserDetail(userDetailUrl);//加载用户介绍信息
+				//var userDetailUrl = '/user/getUserIntroduce';
+				//getUserDetail(userDetailUrl);//加载用户介绍信息
 			}
 
 			/*获得文章列表并填充*/
@@ -206,7 +207,7 @@
 							}
 						});
 						var header = document.getElementById('header'); 
-						var str='<nav><div class="logo"><a href="/">石佳个人博客</a></div>' +
+						var str='<nav><div class="logo"><a href="/">个人博客</a></div>' +
 						'<h2 id="mnavh"><span class="navicon"></span></h2>' +
 						'<ul id="starlist">' +
 						'<li><a href="index.html">网站首页</a></li>' +
@@ -214,16 +215,6 @@
 						'<li><a href="gbook.html">留言</a></li>' + s + '</ul></nav>';
 						header.innerHTML = str;
 
-						//			<nav><div class="logo"><a href="@{/}">石佳个人博客</a></div>
-						//	    <h2 id="mnavh"><span class="navicon"></span></h2>
-						//	    <ul id="starlist">
-						//	      <li><a href="index.html">网站首页</a></li>
-						//	      <li><a href="about.html">关于我</a></li>
-						//	      <li><a href="gbook.html">留言</a></li>
-						//	      <li><a href="infopic.html"><img style="float: left;margin-top: 19px;" th:src="@{/blog/images/writeArticle.png}">&nbsp;写博客</a></li>
-						//	      <li><a style="float: left; margin-right: 20px;" th:href="@{/user/login}">登陆</a><a th:href="@{/user/regist}">注册</a></li>
-						//	    </ul>
-						//	</nav>
 					}
 				
 				/*动态加载其他的js*/

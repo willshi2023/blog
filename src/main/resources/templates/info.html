@@ -2,9 +2,9 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>首页_石佳个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
-<meta name="keywords" content="个人博客,石佳个人博客,个人博客模板,石佳" />
-<meta name="description" content="石佳个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
+<title>首页_个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+<meta name="keywords" content="个人博客,个人博客,个人博客模板,石佳" />
+<meta name="description" content="个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link th:href="@{/blog/css/base.css}" rel="stylesheet">
 <link th:href="@{/blog/css/index.css}" rel="stylesheet">
@@ -18,20 +18,8 @@
 <![endif]-->
 </head>
 <body>
-<header class="header-navigation" id="header">
-  <nav><div class="logo"><a href="/">石佳个人博客</a></div>
-    <h2 id="mnavh"><span class="navicon"></span></h2>
-    <ul id="starlist">
-      <li><a href="index.html">网站首页</a></li>
-      <li><a href="share.html">我的相册</a></li>
-      <li><a href="list.html">我的日记</a></li>
-      <li><a href="about.html">关于我</a></li>
-      <li><a href="gbook.html">留言</a></li>
-      <li><a href="info.html">内容页</a></li>
-      <li><a href="infopic.html">内容页</a></li>
-    </ul>
-</nav>
-</header>
+	<!-- 引入网站头文件 -->
+	<div th:replace="commons/top::head1"></div>
 <article>
   <aside>
   <div class="l_box">
@@ -153,7 +141,7 @@
   </div>
 </article>
 <footer>
-  <p>Design by <a href="http://www.yangqq.com" target="_blank">石佳个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+  <p>Design by <a href="http://www.yangqq.com" target="_blank">个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
 </footer>
 <a href="#" class="cd-top">Top</a>
 </body>
